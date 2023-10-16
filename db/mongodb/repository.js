@@ -10,12 +10,14 @@ const reposetory = {
     },
     
     InsertOne : (data) =>{
-        const user = new user({data})
-        return user.save();
+        const users = new user(data)
+        return users.save();
     },
     InsertMany : (data) =>{
-        const user = new user([...data])
-        return user.save();
+        // const users = new user(data)
+        // return users.save();
+        console.log(data)
+        return user.insertMany(data)
     },
     
     UpdateOne : (id,data) =>{
@@ -29,8 +31,8 @@ const reposetory = {
     DeleteOne : (id) =>{
         return user.deleteOne({'_id':id})
     },
-    DeleteMany : (id) =>{
-        return user.deleteMany({'_id':id})
+    DeleteMany : () =>{
+        return user.deleteMany()
     },
     
 };
