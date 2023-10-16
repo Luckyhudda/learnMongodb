@@ -13,7 +13,7 @@ const reposetory = {
         const user = new user({data})
         return user.save();
     },
-    Insertmany : (data) =>{
+    InsertMany : (data) =>{
         const user = new user([...data])
         return user.save();
     },
