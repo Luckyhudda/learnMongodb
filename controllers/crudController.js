@@ -1,6 +1,7 @@
 const reposetory = require("../db/mongodb/repository");
 
 const crudController = {
+
   GetMany: (req, res) => {
     reposetory
       .FindAll()
@@ -33,6 +34,7 @@ const crudController = {
         });
       });
   },
+
   PostOne: (req, res) => {
     reposetory
       .InsertOne(req.body)
@@ -65,9 +67,10 @@ const crudController = {
         });
       });
   },
-  updateOne: (req, res) => {
+
+  putOne: (req, res) => {
     reposetory
-      .FindOne(req.params.id)
+      .UpdateOne(req.params.id)
       .then((result) => {
         res.json({
           message: "success",

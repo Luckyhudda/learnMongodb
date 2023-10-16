@@ -16,17 +16,16 @@ const reposetory = {
     InsertMany : (data) =>{
         // const users = new user(data)
         // return users.save();
-        console.log(data)
         return user.insertMany(data)
     },
     
     UpdateOne : (id,data) =>{
-        
+        return user.updateOne(id,data)
     },
     
-    UpdateMany : (id,data) =>{
-        
-    },
+    // UpdateMany : (id,data) =>{
+    //      return user.updateMany(_, data);
+    // },
     
     DeleteOne : (id) =>{
         return user.deleteOne({'_id':id})
