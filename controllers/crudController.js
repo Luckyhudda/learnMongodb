@@ -70,7 +70,7 @@ const crudController = {
 
   putOne: (req, res) => {
     reposetory
-      .UpdateOne(req.params.id)
+      .UpdateOne(req.params.id,req.data)
       .then((result) => {
         res.json({
           message: "success",
