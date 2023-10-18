@@ -30,7 +30,7 @@ const reposetory = {
     return user.deleteOne({ _id: id });
   },
   DeleteMany: () => {
-   // return user.deleteMany();
+    return user.deleteMany();
   },
 };
 

@@ -111,25 +111,20 @@ const crudController = {
 
   // Delete all data from server :)
   DeleteMany: (req, res) => {
-    //   reposetory
-    //     .DeleteMany(req.params.id)
-    //     .then((result) => {
-    //       res.json({
-    //         message: "success",
-    //         result,
-    //       });
-    //     })
-    //     .catch((err) => {
-    //       res.json({
-    //         message: "failed",
-    //         error: err,
-    //       });
-    //     });
-    // },
-    res.json({
-      message:
-        "Delete functionality working fine, but i did not want, you delete my data...😄🙂",
-    });
+    reposetory
+      .DeleteMany(req.params.id)
+      .then((result) => {
+        res.json({
+          message: "success",
+          result,
+        });
+      })
+      .catch((err) => {
+        res.json({
+          message: "failed",
+          error: err,
+        });
+      });
   },
 };
 
