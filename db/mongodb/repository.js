@@ -1,5 +1,4 @@
-const user = require('./user');
-
+const user = require("./user");
 
 const reposetory = {
   FindAll: () => {
@@ -31,7 +30,7 @@ const reposetory = {
     return user.deleteOne({ _id: id });
   },
   DeleteMany: () => {
-    return user.deleteMany();
+   // return user.deleteMany();
   },
 };
 
