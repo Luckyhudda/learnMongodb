@@ -7,9 +7,14 @@ const reposetory = {
 
     // 1) filter the query for filter the data....
     excludedField.forEach((el) => delete queryObj[el]);
-    let query = queryObj;
+    let query = user.find(queryObj);
 
-    return user.find(query);
+    // 2) sort the data 
+    if (queryParams["sort"]) {
+      query = query.sort(queryParams["sort"]);
+    }
+    return query;
+
   },
   FindOne: (id) => {
     return user.findOne({ _id: id });
