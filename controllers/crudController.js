@@ -77,11 +77,10 @@ const crudController = {
   // Update a data Object from server :)
   putOne: (req, res) => {
     reposetory
-      .UpdateOne(req.params.id, req.data)
+      .UpdateOne(req.params.id, req.body)
       .then((result) => {
         res.json({
-          message: "success",
-          result,
+          message: "Update Successfully",
         });
       })
       .catch((err) => {

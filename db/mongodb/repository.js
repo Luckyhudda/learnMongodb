@@ -19,7 +19,7 @@ const reposetory = {
   },
 
   UpdateOne: (id, data) => {
-    return user.findByIdAndUpdate(id, data, { new: true });
+    return  user.updateOne({'_id': id}, data, { new: true });
   },
 
   // UpdateMany : (id,data) =>{
