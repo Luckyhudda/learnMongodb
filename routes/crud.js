@@ -3,7 +3,7 @@ const crudController = require("../controllers/crudController");
 
 const router = express.Router();
 
-router.get("/", crudController.GetMany);
+router.get("/", crudController.GetAll);
 router.get("/:id", crudController.GetOne);
 
 router.post("/", crudController.PostOne);

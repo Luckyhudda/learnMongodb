@@ -1,8 +1,15 @@
 const user = require("./user");
 
 const reposetory = {
-  FindAll: () => {
-    return user.find();
+  FindAll: (queryParams) => {
+    const queryObj = { ...queryParams };
+    const excludedField = ["page", "sort", "limit", "fields"];
+
+    // 1) filter the query for filter the data....
+    excludedField.forEach((el) => delete queryObj[el]);
+    let query = queryObj;
+
+    return user.find(query);
   },
   FindOne: (id) => {
     return user.findOne({ _id: id });
@@ -19,7 +26,7 @@ const reposetory = {
   },
 
   UpdateOne: (id, data) => {
-    return  user.updateOne({'_id': id}, data, { new: true });
+    return user.updateOne({ _id: id }, data, { new: true });
   },
 
   // UpdateMany : (id,data) =>{

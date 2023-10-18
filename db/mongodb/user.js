@@ -9,7 +9,8 @@ const userSchema = new Schema({
   age:Number,
   gender: {
     type: String,
-    enum: ["Male", "Female", "Other"],
+    enum: ["male", "female", "other"],
+    lowercase: true,
   },
   email: {
     type: String,

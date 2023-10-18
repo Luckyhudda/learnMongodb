@@ -2,9 +2,10 @@ const reposetory = require("../db/mongodb/repository");
 
 const crudController = {
   // Get all data from server :)
-  GetMany: (req, res) => {
+
+  GetAll: (req, res) => {
     reposetory
-      .FindAll()
+      .FindAll(req.query)
       .then((result) => {
         res.json({
           message: "success",
