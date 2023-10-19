@@ -2,20 +2,34 @@ const user = require("./user");
 
 const reposetory = {
   FindAll: (queryParams) => {
+    // 1) filter the query for filter the data....
     const queryObj = { ...queryParams };
     const excludedField = ["page", "sort", "limit", "fields"];
-
-    // 1) filter the query for filter the data....
     excludedField.forEach((el) => delete queryObj[el]);
     let query = user.find(queryObj);
 
-    // 2) sort the data 
+    // 2) sort the data
     if (queryParams["sort"]) {
       query = query.sort(queryParams["sort"]);
+    } else {
+      query = query.sort("age");
     }
-    return query;
+    
+    
+    // 3) Field limiting...
+    if (queryParams["fields"]){
+      const fields = queryParams['fields'].split(',').join(' ');
+      query = query.select(fields)
+    } else{
+      query = query.select("-__v")
 
+    }
+    
+    // Return the Query
+    return query;
   },
+
+
   FindOne: (id) => {
     return user.findOne({ _id: id });
   },
