@@ -1,36 +1,64 @@
 const user = require("./user");
 
-const reposetory = {
-  FindAll: (queryParams) => {
+class apiFeature {
+  constructor(query, queryStr) {
+    this.query = query;
+    this.queryStr = queryStr;
+  }
+
+  Filter() {
     // 1) filter the query for filter the data....
-    const queryObj = { ...queryParams };
+    const queryObj = { ...this.queryStr };
     const excludedField = ["page", "sort", "limit", "fields"];
     excludedField.forEach((el) => delete queryObj[el]);
-    let query = user.find(queryObj);
+     this.queryStr = this.query.find(queryObj);
 
+    return this;
+  }
+
+  Sort() {
     // 2) sort the data
-    if (queryParams["sort"]) {
-      query = query.sort(queryParams["sort"]);
+    if (this.query["sort"]) {
+      this.queryStr = this.queryStr.sort(this.query["sort"]);
     } else {
-      query = query.sort("age");
+      this.queryStr = this.queryStr.sort("age");
     }
 
+    return this;
+  }
+
+  FieldLimitation() {
     // 3) Field limiting...
-    if (queryParams["fields"]) {
-      const fields = queryParams["fields"].split(",").join(" ");
-      query = query.select(fields);
+    if (this.query["fields"]) {
+      const fields = this.query["fields"].split(",").join(" ");
+      this.queryStr = this.queryStr.select(fields);
     } else {
-      query = query.select("-__v");
+      this.queryStr = this.queryStr.select("-__v");
     }
 
-    // 4) Pagination...
-    const page = queryParams["page"] * 1 || 1;
-    const limit = queryParams["limit"] * 1 || 10;
-    const Skip = (page - 1) * limit;
-    query = query.skip(Skip).limit(limit);
+    return this;
+  }
 
-    // Return the Query
-    return query;
+  Pagination() {
+    // 4) Pagination...
+    const page = this.query["page"] * 1 || 1;
+    const limit = this.query["limit"] * 1 || 10;
+    const Skip = (page - 1) * limit;
+    this.queryStr = this.queryStr.skip(Skip).limit(limit);
+
+    return this;
+  }
+}
+
+const reposetory = {
+  FindAll: (queryParams) => {
+    const feature = new apiFeature(user.find(), queryParams)
+      .Filter()
+      .Sort()
+      .FieldLimitation()
+      .Pagination();
+
+      return feature
   },
 
   FindOne: (id) => {
