@@ -24,6 +24,13 @@ const reposetory = {
       query = query.select("-__v")
 
     }
+
+
+    // 4) Pagination...
+    const page = queryParams['page'] * 1 || 1;
+    const limit = queryParams['limit'] * 1 || 10;
+    const Skip = (page-1) * limit;
+    query = query.skip(Skip).limit(limit);
     
     // Return the Query
     return query;
