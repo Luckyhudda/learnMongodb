@@ -6,7 +6,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  age:Number,
+  age: Number,
   gender: {
     type: String,
     enum: ["male", "female", "other"],
@@ -17,7 +17,7 @@ const userSchema = new Schema({
     unique: true,
     trim: true,
     lowercase: true,
-  }
+  },
 });
 const userModel = mongoose.model("user", userSchema);
 module.exports = userModel;

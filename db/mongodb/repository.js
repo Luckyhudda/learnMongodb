@@ -14,28 +14,24 @@ const reposetory = {
     } else {
       query = query.sort("age");
     }
-    
-    
-    // 3) Field limiting...
-    if (queryParams["fields"]){
-      const fields = queryParams['fields'].split(',').join(' ');
-      query = query.select(fields)
-    } else{
-      query = query.select("-__v")
 
+    // 3) Field limiting...
+    if (queryParams["fields"]) {
+      const fields = queryParams["fields"].split(",").join(" ");
+      query = query.select(fields);
+    } else {
+      query = query.select("-__v");
     }
 
-
     // 4) Pagination...
-    const page = queryParams['page'] * 1 || 1;
-    const limit = queryParams['limit'] * 1 || 10;
-    const Skip = (page-1) * limit;
+    const page = queryParams["page"] * 1 || 1;
+    const limit = queryParams["limit"] * 1 || 10;
+    const Skip = (page - 1) * limit;
     query = query.skip(Skip).limit(limit);
-    
+
     // Return the Query
     return query;
   },
-
 
   FindOne: (id) => {
     return user.findOne({ _id: id });
