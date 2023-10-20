@@ -10,6 +10,15 @@ const userSchema = new Schema({
     minlength: [4, "Name should have at least 4 characters"], // validation
   },
   slug: String,
+  password: {
+    type: String,
+    validate: {
+      validator: function (value) {
+        return validator.isStrongPassword(value);
+      },
+      message: "If you want to use a password, it must be a strong password",
+    },
+  },
   age: {
     type: Number,
     min: [18, `You must be at least 18 years old`],
