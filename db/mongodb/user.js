@@ -5,13 +5,14 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
   name: {
     type: String,
-    required: true,
+    required: true, // validation
+    minlength: [4, "Name sould have atleast 4 charectore ...."], // validation
   },
   slug: String,
   age: Number,
   gender: {
     type: String,
-    enum: ["male", "female", "other"],
+    enum: ["male", "female", "other"], // validation
     lowercase: true,
   },
   email: {
