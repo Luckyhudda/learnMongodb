@@ -52,7 +52,7 @@ const crudController = {
       .catch((err) => {
         res.json({
           message: "failed",
-          error: err,
+          error: err.message,
         });
       });
   },
@@ -70,7 +70,7 @@ const crudController = {
       .catch((err) => {
         res.json({
           message: "failed",
-          error: err,
+          error: err.message,
         });
       });
   },
@@ -87,7 +87,7 @@ const crudController = {
       .catch((err) => {
         res.json({
           message: "failed",
-          error: err,
+          error: `${err.path}: ${err.value} does not match`,
         });
       });
   },
@@ -105,7 +105,7 @@ const crudController = {
       .catch((err) => {
         res.json({
           message: "failed",
-          error: err,
+         error: `${err.path}: ${err.value} does not match`,
         });
       });
   },
