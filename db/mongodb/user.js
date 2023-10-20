@@ -9,7 +9,10 @@ const userSchema = new Schema({
     minlength: [4, "Name sould have atleast 4 charectore ...."], // validation
   },
   slug: String,
-  age: Number,
+  age: {
+    type:Number,
+    min:[18,`You are not eligible for it, age sould be gender then 18`]
+  },
   gender: {
     type: String,
     enum: ["male", "female", "other"], // validation
@@ -20,6 +23,7 @@ const userSchema = new Schema({
     unique: true,
     trim: true,
     lowercase: true,
+    
   },
 });
 const userModel = mongoose.model("user", userSchema);
