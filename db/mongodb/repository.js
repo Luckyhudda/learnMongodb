@@ -1,64 +1,36 @@
 const user = require("./user");
 
-class apiFeature {
-  constructor(query, queryStr) {
-    this.query = query;
-    this.queryStr = queryStr;
-  }
-
-  Filter() {
-    // 1) filter the query for filter the data....
-    const queryObj = { ...this.queryStr };
-    const excludedField = ["page", "sort", "limit", "fields"];
-    excludedField.forEach((el) => delete queryObj[el]);
-     this.queryStr = this.query.find(queryObj);
-
-    return this;
-  }
-
-  Sort() {
-    // 2) sort the data
-    if (this.query["sort"]) {
-      this.queryStr = this.queryStr.sort(this.query["sort"]);
-    } else {
-      this.queryStr = this.queryStr.sort("age");
-    }
-
-    return this;
-  }
-
-  FieldLimitation() {
-    // 3) Field limiting...
-    if (this.query["fields"]) {
-      const fields = this.query["fields"].split(",").join(" ");
-      this.queryStr = this.queryStr.select(fields);
-    } else {
-      this.queryStr = this.queryStr.select("-__v");
-    }
-
-    return this;
-  }
-
-  Pagination() {
-    // 4) Pagination...
-    const page = this.query["page"] * 1 || 1;
-    const limit = this.query["limit"] * 1 || 10;
-    const Skip = (page - 1) * limit;
-    this.queryStr = this.queryStr.skip(Skip).limit(limit);
-
-    return this;
-  }
-}
-
 const reposetory = {
   FindAll: (queryParams) => {
-    const feature = new apiFeature(user.find(), queryParams)
-      .Filter()
-      .Sort()
-      .FieldLimitation()
-      .Pagination();
+    // 1) filter the query for filter the data....
+    const queryObj = { ...queryParams };
+    const excludedField = ["page", "sort", "limit", "fields"];
+    excludedField.forEach((el) => delete queryObj[el]);
+    let query = user.find(queryObj);
 
-      return feature
+    // 2) sort the data
+    if (queryParams["sort"]) {
+      query = query.sort(queryParams["sort"]);
+    } else {
+      query = query.sort("age");
+    }
+
+    // 3) Field limiting...
+    if (queryParams["fields"]) {
+      const fields = queryParams["fields"].split(",").join(" ");
+      query = query.select(fields);
+    } else {
+      query = query.select("-__v");
+    }
+
+    // 4) Pagination...
+    const page = queryParams["page"] * 1 || 1;
+    const limit = queryParams["limit"] * 1 || 10;
+    const Skip = (page - 1) * limit;
+    query = query.skip(Skip).limit(limit);
+
+    // Return the Query
+    return query;
   },
 
   FindOne: (id) => {

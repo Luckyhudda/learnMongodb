@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const slugify = require("slugify");
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
@@ -6,6 +7,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  slug: String,
   age: Number,
   gender: {
     type: String,
@@ -20,4 +22,12 @@ const userSchema = new Schema({
   },
 });
 const userModel = mongoose.model("user", userSchema);
+
+// userSchema.pre("save", function (next) {
+//   console.log(this);
+//   this.slug = slugify(this.name);
+//   console.log(this.slug);
+//   next();
+// });
+
 module.exports = userModel;

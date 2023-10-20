@@ -1,9 +1,10 @@
-const app = require("./app");
+const dotenv = require("dotenv");
 const mongoose = require("mongoose");
-const dotenv = require('dotenv');
-dotenv.config()
+const app = require("./app");
+
+dotenv.config();
 mongoose
-  .connect(process.env.MONGOURL).then(() =>{
+  .connect(process.env.MONGOURL).then(() => {
     console.log('connected to mongodb');
   }).catch((err) =>{
     console.log('error' , err)
